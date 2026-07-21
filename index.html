@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Challenge — kunlik intizom</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#0a0b12;
+  --card:rgba(255,255,255,0.045);
+  --card-hi:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.10);
+  --accent-a:#6366f1;
+  --accent-b:#c084fc;
+  --fire:#fb923c;
+  --success:#34d399;
+  --danger:#fb7185;
+  --text:#f2f3fb;
+  --text-dim:#8a8fb0;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 12% 5%, rgba(99,102,241,0.30), transparent 42%),
+    radial-gradient(circle at 88% 12%, rgba(192,132,252,0.24), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(99,102,241,0.14), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  padding:30px 16px 70px;
+}
+.wrap{max-width:480px;margin:0 auto;}
+
+/* ---------- onboarding ---------- */
+.onboard{
+  min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  animation:fadeUp 0.5s ease;
+}
+.onboard .logo{font-size:42px;margin-bottom:10px;}
+.onboard h1{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;margin:0 0 8px;}
+.onboard p{color:var(--text-dim);font-size:14px;margin:0 0 26px;}
+.onboard input{
+  width:100%;max-width:280px;background:var(--card);border:1px solid var(--border);color:var(--text);
+  border-radius:14px;padding:13px 16px;font-size:15px;text-align:center;font-family:'Inter',sans-serif;margin-bottom:14px;
+  backdrop-filter:blur(16px);
+}
+.onboard input:focus{outline:none;border-color:var(--accent-a);}
+.onboard button{
+  background:linear-gradient(135deg,var(--accent-a),var(--accent-b));border:none;color:#fff;
+  padding:13px 34px;border-radius:14px;font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;cursor:pointer;
+  box-shadow:0 8px 24px rgba(99,102,241,0.35);transition:transform 0.15s;
+}
+.onboard button:active{transform:scale(0.97);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+/* ---------- header ---------- */
+.top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;}
+.top .greet{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:23px;}
+.top .date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+
+/* ---------- stats ---------- */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
+.stat-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 16px;
+  backdrop-filter:blur(16px);
+}
+.stat-card .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;
+  background:linear-gradient(135deg,var(--accent-a),var(--accent-b));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.stat-card .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;}
+
+/* ---------- section titles ---------- */
+.section-title{
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);text-transform:uppercase;
+  letter-spacing:1.5px;margin:22px 2px 10px;display:flex;justify-content:space-between;align-items:center;
+}
+
+/* ---------- add button ---------- */
+.add-btn{
+  width:100%;background:transparent;border:1.5px dashed var(--border);color:var(--text-dim);
+  padding:14px;border-radius:16px;font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;
+  cursor:pointer;margin-bottom:16px;transition:all 0.2s;
+}
+.add-btn:hover{border-color:var(--accent-a);color:var(--text);}
+
+/* ---------- create form ---------- */
+.create-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;margin-bottom:16px;
+  backdrop-filter:blur(16px);animation:fadeUp 0.35s ease;
+}
+.create-card label{display:block;font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;font-family:'JetBrains Mono',monospace;}
+.create-card input[type=text]{
+  width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);
+  border-radius:12px;padding:10px 13px;font-size:14px;font-family:'Inter',sans-serif;margin-bottom:14px;
+}
+.create-card input[type=text]:focus{outline:none;border-color:var(--accent-a);}
+.duration-options{display:flex;gap:8px;margin-bottom:16px;}
+.duration-opt{
+  flex:1;text-align:center;padding:10px 0;border-radius:12px;border:1px solid var(--border);
+  background:rgba(255,255,255,0.03);cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;
+  color:var(--text-dim);transition:all 0.2s;
+}
+.duration-opt.active{background:linear-gradient(135deg,var(--accent-a),var(--accent-b));color:#fff;border-color:transparent;}
+.create-actions{display:flex;gap:10px;}
+.create-actions button{
+  flex:1;padding:11px;border-radius:12px;font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;cursor:pointer;border:none;
+}
+.create-actions .cancel{background:rgba(255,255,255,0.05);color:var(--text-dim);}
+.create-actions .confirm{background:linear-gradient(135deg,var(--accent-a),var(--accent-b));color:#fff;}
+
+/* ---------- challenge card ---------- */
+.challenge-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;margin-bottom:14px;
+  backdrop-filter:blur(16px);box-shadow:0 8px 28px rgba(0,0,0,0.30);animation:fadeUp 0.4s ease;
+}
+.ch-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.ch-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;}
+.ch-meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--text-dim);text-align:right;line-height:1.5;}
+.streak-badge{
+  display:inline-flex;align-items:center;gap:4px;background:rgba(251,146,60,0.12);border:1px solid rgba(251,146,60,0.35);
+  color:var(--fire);border-radius:10px;padding:3px 9px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;margin-top:6px;
+}
+.bar-track{height:10px;background:rgba(255,255,255,0.07);border-radius:8px;overflow:hidden;margin:6px 0 8px;}
+.bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
+  transition:width 0.8s cubic-bezier(.4,0,.2,1);}
+.ch-stats-row{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-dim);margin-bottom:14px;}
+.ch-stats-row b{color:var(--text);}
+
+.today-row{display:flex;align-items:center;gap:12px;}
+.chk{
+  width:26px;height:26px;flex:none;border-radius:9px;border:1.5px solid var(--border);
+  background:rgba(255,255,255,0.04);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all 0.25s cubic-bezier(.4,0,.2,1);
+}
+.chk svg{width:14px;height:14px;opacity:0;transform:scale(0.4);transition:all 0.25s cubic-bezier(.34,1.56,.64,1);}
+.chk.on{background:linear-gradient(135deg,var(--success),#10b981);border-color:transparent;animation:pop 0.35s ease;}
+.chk.on svg{opacity:1;transform:scale(1);}
+@keyframes pop{0%{transform:scale(1);}45%{transform:scale(1.2);}100%{transform:scale(1);}}
+.today-label{flex:1;font-size:14px;font-weight:500;}
+.today-label small{display:block;color:var(--text-dim);font-size:11px;font-weight:400;margin-top:1px;}
+
+/* ---------- exercises inside a challenge ---------- */
+.exercise-list{display:flex;flex-direction:column;gap:12px;}
+.exercise-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,0.06);}
+.exercise-row:first-child{border-top:none;padding-top:0;}
+.exercise-info{flex:1;min-width:0;}
+.exercise-name{font-size:14px;font-weight:500;}
+.exercise-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--text-dim);margin-top:2px;}
+.exercise-num{
+  display:flex;align-items:center;gap:6px;flex:none;
+}
+.exercise-num input{
+  width:64px;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);
+  border-radius:10px;padding:7px 8px;font-family:'JetBrains Mono',monospace;font-size:13px;text-align:center;
+}
+.exercise-num input:focus{outline:none;border-color:var(--accent-a);}
+.exercise-num button{
+  background:linear-gradient(135deg,var(--accent-a),var(--accent-b));border:none;color:#fff;
+  border-radius:10px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;
+}
+
+/* ---------- exercise drafting in create form ---------- */
+.ex-draft-row{
+  border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:rgba(255,255,255,0.03);
+  position:relative;
+}
+.ex-draft-row input[type=text]{margin-bottom:8px;}
+.ex-draft-row .ex-row-2{display:flex;gap:8px;}
+.ex-draft-row select{
+  flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);
+  border-radius:10px;padding:8px 10px;font-size:13px;font-family:'Inter',sans-serif;
+}
+.ex-draft-row input[type=number]{
+  width:70px;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);
+  border-radius:10px;padding:8px 10px;font-size:13px;font-family:'Inter',sans-serif;
+}
+.ex-draft-row .ex-remove{
+  position:absolute;top:8px;right:10px;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:15px;
+}
+.add-ex-btn{
+  width:100%;background:transparent;border:1.5px dashed var(--border);color:var(--text-dim);
+  padding:9px;border-radius:12px;font-family:'Inter',sans-serif;font-size:12.5px;cursor:pointer;margin-bottom:14px;
+}
+.add-ex-btn:hover{border-color:var(--accent-a);color:var(--text);}
+
+/* ---------- completed list ---------- */
+.completed-card{
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;padding:15px 17px;margin-bottom:10px;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.completed-card .name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;}
+.completed-card .sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--text-dim);margin-top:3px;}
+.completed-badge{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+  background:linear-gradient(135deg,var(--success),#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* ---------- card action icons ---------- */
+.card-actions{display:flex;gap:6px;flex:none;}
+.icon-btn{
+  width:28px;height:28px;flex:none;border-radius:9px;border:1px solid var(--border);background:rgba(255,255,255,0.04);
+  color:var(--text-dim);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all 0.2s;
+}
+.icon-btn:hover{color:var(--text);border-color:var(--accent-a);}
+.icon-btn.danger:hover{color:var(--danger);border-color:var(--danger);}
+.empty-hint{color:var(--text-dim);font-size:13px;text-align:center;padding:20px 10px;font-family:'JetBrains Mono',monospace;line-height:1.6;}
+
+/* ---------- completion modal ---------- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(6,7,14,0.75);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;padding:24px;z-index:50;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-box{
+  background:linear-gradient(160deg, rgba(99,102,241,0.14), rgba(192,132,252,0.10)), #12131f;
+  border:1px solid var(--border);border-radius:24px;padding:34px 28px 28px;max-width:340px;width:100%;
+  text-align:center;transform:scale(0.85);transition:transform 0.35s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.modal-overlay.open .modal-box{transform:scale(1);}
+.modal-emoji{font-size:52px;margin-bottom:6px;animation:bounce 0.6s ease;}
+@keyframes bounce{0%{transform:scale(0.4);}50%{transform:scale(1.15);}100%{transform:scale(1);}}
+.modal-box h2{font-family:'Space Grotesk',sans-serif;font-size:21px;margin:0 0 6px;}
+.modal-box .ch-name-modal{color:var(--text-dim);font-size:13px;margin-bottom:18px;}
+.modal-result{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;
+  background:linear-gradient(135deg,var(--accent-a),var(--accent-b));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.modal-result-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);margin-top:4px;margin-bottom:22px;}
+.modal-box button{
+  width:100%;background:linear-gradient(135deg,var(--accent-a),var(--accent-b));border:none;color:#fff;
+  padding:13px;border-radius:14px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;cursor:pointer;
+}
+.modal-actions-row{display:flex;gap:10px;}
+.modal-actions-row button{flex:1;width:auto;}
+.modal-actions-row button.ghost{background:rgba(255,255,255,0.08);color:var(--text-dim);}
+.modal-actions-row button.danger{background:linear-gradient(135deg,var(--danger),#e11d48);}
+
+/* day grid (manual kun-kataklari) */
+.day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:14px;}
+.day-cell{
+  aspect-ratio:1;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);cursor:pointer;transition:all 0.2s;
+}
+.day-cell.future{opacity:0.3;cursor:default;}
+.day-cell.done{background:linear-gradient(135deg,var(--accent-a),var(--accent-b));color:#fff;border-color:transparent;font-weight:600;}
+.day-cell.missed{border-color:rgba(251,113,133,0.5);color:var(--danger);}
+.day-cell.today-cell{box-shadow:0 0 0 2px var(--accent-b);}
+.grid-hint{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--text-dim);margin-top:10px;text-align:center;}
+
+.footer-note{text-align:center;color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.5px;margin-top:26px;opacity:0.55;}
+
+@media(max-width:360px){
+  .stats-grid{gap:8px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="modal-overlay" id="modalOverlay"></div>
+
+<script>
+/* =====================================================
+   STORAGE LAYER
+===================================================== */
+const STORE_USER = 'cbh_user';
+const STORE_CHALLENGES = 'cbh_challenges';
+const STORE_LAST_DATE = 'cbh_lastDate';
+
+function loadUser(){ try{ return JSON.parse(localStorage.getItem(STORE_USER)); }catch(e){ return null; } }
+function saveUser(u){ localStorage.setItem(STORE_USER, JSON.stringify(u)); }
+
+function loadChallenges(){ try{ return JSON.parse(localStorage.getItem(STORE_CHALLENGES)) || []; }catch(e){ return []; } }
+function saveChallenges(){ localStorage.setItem(STORE_CHALLENGES, JSON.stringify(challenges)); }
+
+function loadLastDate(){ return localStorage.getItem(STORE_LAST_DATE); }
+function saveLastDate(d){ localStorage.setItem(STORE_LAST_DATE, d); }
+
+/* =====================================================
+   DATE HELPERS
+===================================================== */
+function todayStr(){ return dateStr(new Date()); }
+function dateStr(d){ return d.toISOString().slice(0,10); }
+function daysBetween(a,b){ return Math.round((new Date(b)-new Date(a))/86400000); }
+function fmtShort(d){ return new Date(d).toLocaleDateString('uz-UZ',{day:'2-digit',month:'2-digit'}); }
+function uid(){ return 'c'+Date.now()+Math.floor(Math.random()*1000); }
+
+/* =====================================================
+   STATE
+===================================================== */
+let user = loadUser();
+let challenges = loadChallenges();
+let creatingNew = false;
+let editingId = null;
+let draftDuration = 30;
+let exDraft = [];
+let celebrationQueue = [];
+
+/* =====================================================
+   CHALLENGE LOGIC
+===================================================== */
+function elapsedIndex(c){ return daysBetween(c.startDate, todayStr()) + 1; }
+
+function computeStreak(c){
+  const checked = new Set(c.checkedDates);
+  let streak = 0;
+  let cursor = new Date();
+  let cStr = dateStr(cursor);
+  if(!checked.has(cStr)){
+    cursor.setDate(cursor.getDate()-1);
+    cStr = dateStr(cursor);
+    if(!checked.has(cStr)) return 0;
+  }
+  while(checked.has(dateStr(cursor))){
+    streak++;
+    cursor.setDate(cursor.getDate()-1);
+  }
+  return streak;
+}
+
+function processExpirations(){
+  let changed = false;
+  challenges.forEach(c=>{
+    if(c.status==='active' && elapsedIndex(c) > c.duration){
+      const days = c.checkedDates.length;
+      const percent = Math.round((days/c.duration)*100);
+      c.status = 'completed';
+      c.result = {days, percent};
+      changed = true;
+      if(!c.celebrated){ celebrationQueue.push(c.id); }
+    }
+  });
+  if(changed) saveChallenges();
+}
+
+function toggleToday(id){
+  const c = challenges.find(x=>x.id===id);
+  if(!c) return;
+  const t = todayStr();
+  const i = c.checkedDates.indexOf(t);
+  if(i===-1) c.checkedDates.push(t); else c.checkedDates.splice(i,1);
+  saveChallenges();
+  render();
+}
+
+function dateAtIndex(startDate, i){
+  const d = new Date(startDate);
+  d.setDate(d.getDate() + (i-1));
+  return dateStr(d);
+}
+
+function toggleDayCell(challengeId, i){
+  const c = challenges.find(x=>x.id===challengeId);
+  if(!c) return;
+  if(i > elapsedIndex(c)) return; // kelajakdagi kunni belgilab bo'lmaydi
+  const ds = dateAtIndex(c.startDate, i);
+  const pos = c.checkedDates.indexOf(ds);
+  if(pos===-1) c.checkedDates.push(ds); else c.checkedDates.splice(pos,1);
+  saveChallenges();
+  render();
+}
+
+function exerciseDoneOn(c, ex, dStr){
+  const log = (c.exerciseLogs[ex.id]||{})[dStr];
+  if(ex.type==='kun') return !!log;
+  const val = Number(log||0);
+  return ex.target ? val>=ex.target : val>0;
+}
+
+function recomputeToday(c){
+  if(!c.exercises || c.exercises.length===0) return;
+  const t = todayStr();
+  const allDone = c.exercises.every(ex=>exerciseDoneOn(c, ex, t));
+  const i = c.checkedDates.indexOf(t);
+  if(allDone && i===-1) c.checkedDates.push(t);
+  if(!allDone && i!==-1) c.checkedDates.splice(i,1);
+}
+
+function toggleExerciseKun(challengeId, exId){
+  const c = challenges.find(x=>x.id===challengeId);
+  if(!c) return;
+  const t = todayStr();
+  if(!c.exerciseLogs[exId]) c.exerciseLogs[exId] = {};
+  c.exerciseLogs[exId][t] = !c.exerciseLogs[exId][t];
+  if(!c.exerciseLogs[exId][t]) delete c.exerciseLogs[exId][t];
+  recomputeToday(c);
+  saveChallenges();
+  render();
+}
+
+function saveExerciseSoni(challengeId, exId){
+  const input = document.getElementById('exnum-'+challengeId+'-'+exId);
+  if(!input) return;
+  const val = Number(input.value);
+  const c = challenges.find(x=>x.id===challengeId);
+  if(!c) return;
+  const t = todayStr();
+  if(!c.exerciseLogs[exId]) c.exerciseLogs[exId] = {};
+  if(val>0) c.exerciseLogs[exId][t] = val; else delete c.exerciseLogs[exId][t];
+  recomputeToday(c);
+  saveChallenges();
+  render();
+}
+
+function createChallenge(){
+  const nameInput = document.getElementById('newChName');
+  const name = nameInput.value.trim();
+  if(!name) return;
+  const exercises = exDraft
+    .filter(ex=>ex.name.trim())
+    .map(ex=>({
+      id: ex.id,
+      name: ex.name.trim(),
+      type: ex.type,
+      target: ex.type==='soni' ? (Number(ex.target)||0) : null,
+      unit: ex.type==='soni' ? (ex.unit||'marta') : null
+    }));
+  challenges.push({
+    id: uid(),
+    name,
+    duration: draftDuration,
+    startDate: todayStr(),
+    checkedDates: [],
+    exercises,
+    exerciseLogs: {},
+    status: 'active',
+    result: null,
+    celebrated: false
+  });
+  saveChallenges();
+  creatingNew = false;
+  render();
+}
+
+function requestDelete(id){
+  const c = challenges.find(x=>x.id===id);
+  if(!c) return;
+  const overlay = document.getElementById('modalOverlay');
+  overlay.innerHTML = `
+    <div class="modal-box">
+      <div class="modal-emoji">🗑</div>
+      <h2>O'chirilsinmi?</h2>
+      <div class="ch-name-modal">"${escapeHtml(c.name)}" butunlay o'chiriladi. Bu amalni qaytarib bo'lmaydi.</div>
+      <div class="modal-actions-row">
+        <button class="ghost" onclick="closeInfoModal()">Bekor qilish</button>
+        <button class="danger" onclick="performDelete('${id}')">Ha, o'chirish</button>
+      </div>
+    </div>
+  `;
+  requestAnimationFrame(()=>overlay.classList.add('open'));
+}
+function closeInfoModal(){
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('open');
+  setTimeout(()=>{ overlay.innerHTML=''; }, 300);
+}
+
+function showAbout(){
+  const overlay = document.getElementById('modalOverlay');
+  overlay.innerHTML = `
+    <div class="modal-box" style="text-align:left;">
+      <div class="modal-emoji" style="text-align:center;">🔥</div>
+      <h2 style="text-align:center;">Bu ilova nima?</h2>
+      <div style="font-size:13.5px;line-height:1.7;color:var(--text-dim);margin-bottom:20px;">
+        <p style="margin:0 0 12px;"><b style="color:var(--text);">Challenge</b> — 30 / 60 / 90 kunlik shaxsiy intizom tizimi. Har bir challenge — muayyan muddat ichida har kuni bajarishni maqsad qilgan narsa (masalan "90 kun sport").</p>
+        <p style="margin:0 0 12px;">Challenge ichiga <b style="color:var(--text);">mashqlar</b> qo'shish mumkin (masalan Yugurish, Push-up). Ularni bajarsangiz, o'sha kun avtomatik belgilanadi. O'tgan kunlarni esa kun-kataklarini bosib o'zingiz ham belgilashingiz mumkin.</p>
+        <p style="margin:0 0 12px;"><b style="color:var(--text);">🔥 Streak</b> — ketma-ket bajargan kunlaringiz soni. Bir kun o'tkazib yuborsangiz, 0 ga tushadi.</p>
+        <p style="margin:0 0 12px;">Muddat tugagach, challenge avtomatik <b style="color:var(--text);">"Tugallangan"</b> bo'limiga o'tadi va natijangiz (foiz bilan) ko'rsatiladi.</p>
+        <p style="margin:0;">⚠️ Ma'lumotlar faqat <b style="color:var(--text);">shu qurilma va shu brauzerda</b> saqlanadi — boshqa odam yoki qurilmada ko'rinmaydi.</p>
+      </div>
+      <button onclick="closeInfoModal()">Tushunarli</button>
+    </div>
+  `;
+  requestAnimationFrame(()=>overlay.classList.add('open'));
+}
+function performDelete(id){
+  challenges = challenges.filter(x=>x.id!==id);
+  saveChallenges();
+  if(editingId===id) editingId=null;
+  closeInfoModal();
+  render();
+}
+
+function openEdit(id){
+  const c = challenges.find(x=>x.id===id);
+  if(!c) return;
+  editingId = id;
+  creatingNew = false;
+  draftDuration = c.duration;
+  exDraft = (c.exercises||[]).map(ex=>({...ex}));
+  render();
+}
+function cancelEdit(){ editingId = null; render(); }
+function saveEdit(){
+  const c = challenges.find(x=>x.id===editingId);
+  if(!c) return;
+  const nameInput = document.getElementById('editChName');
+  const name = nameInput.value.trim();
+  if(!name) return;
+  c.name = name;
+  c.duration = draftDuration;
+  c.exercises = exDraft
+    .filter(ex=>ex.name.trim())
+    .map(ex=>({
+      id: ex.id,
+      name: ex.name.trim(),
+      type: ex.type,
+      target: ex.type==='soni' ? (Number(ex.target)||0) : null,
+      unit: ex.type==='soni' ? (ex.unit||'marta') : null
+    }));
+  saveChallenges();
+  editingId = null;
+  render();
+}
+
+/* =====================================================
+   DAY-CHANGE WATCHER
+===================================================== */
+function checkDayRollover(){
+  const last = loadLastDate();
+  const t = todayStr();
+  if(last !== t){
+    saveLastDate(t);
+    processExpirations();
+    render();
+  }
+}
+setInterval(checkDayRollover, 60000);
+
+/* =====================================================
+   RENDER: ONBOARDING
+===================================================== */
+function renderOnboarding(){
+  document.getElementById('app').innerHTML = `
+    <div class="onboard">
+      <div class="logo">🔥</div>
+      <h1>Challenge boshlaymiz</h1>
+      <p>Bu — 30 / 60 / 90 kunlik shaxsiy intizom challenge tizimi. O'zingiz uchun challenge yaratasiz (masalan "90 kun sport"), ichiga mashqlar qo'shasiz (masalan yugurish, push-up) va har kuni bajarganingizni belgilab borasiz. Ma'lumotlar faqat shu qurilmada saqlanadi.</p>
+      <input type="text" id="userNameInput" placeholder="Ismingiz" maxlength="30">
+      <button onclick="submitName()">Boshlash</button>
+    </div>
+  `;
+  document.getElementById('userNameInput').addEventListener('keydown', e=>{
+    if(e.key==='Enter') submitName();
+  });
+}
+function submitName(){
+  const val = document.getElementById('userNameInput').value.trim();
+  if(!val) return;
+  user = {name: val};
+  saveUser(user);
+  render();
+}
+
+/* =====================================================
+   RENDER: DASHBOARD
+===================================================== */
+function render(){
+  if(!user){ renderOnboarding(); return; }
+
+  processExpirations();
+
+  const active = challenges.filter(c=>c.status==='active');
+  const completed = challenges.filter(c=>c.status==='completed');
+  const totalDaysDone = challenges.reduce((sum,c)=>sum+c.checkedDates.length,0);
+
+  let html = `
+    <div class="top">
+      <div>
+        <div class="greet">Salom, ${escapeHtml(user.name)} 👋</div>
+        <div class="date">${new Date().toLocaleDateString('uz-UZ',{weekday:'long', day:'2-digit', month:'long'}).toUpperCase()}</div>
+      </div>
+      <div class="icon-btn" onclick="showAbout()" title="Ilova haqida">ℹ️</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="num">${challenges.length}</div><div class="lbl">Jami challenge</div></div>
+      <div class="stat-card"><div class="num">${active.length}</div><div class="lbl">Faol</div></div>
+      <div class="stat-card"><div class="num">${completed.length}</div><div class="lbl">Tugallangan</div></div>
+      <div class="stat-card"><div class="num">${totalDaysDone}</div><div class="lbl">Bajarilgan kunlar</div></div>
+    </div>
+
+    <div class="section-title">FAOL CHALLENGE'LAR</div>
+  `;
+
+  if(creatingNew){
+    html += `
+      <div class="create-card">
+        <label>Challenge nomi</label>
+        <input type="text" id="newChName" placeholder="Masalan: 90 kun sport">
+        <label>Davomiyligi</label>
+        <div class="duration-options">
+          ${[30,60,90].map(d=>`<div class="duration-opt ${draftDuration===d?'active':''}" onclick="setDraftDuration(${d})">${d}</div>`).join('')}
+        </div>
+        <label>Mashqlar</label>
+        <div id="exDraftRows"></div>
+        <button class="add-ex-btn" type="button" onclick="addExDraftRow()">+ MASHQ QO'SHISH</button>
+        <div class="create-actions">
+          <button class="cancel" onclick="cancelCreate()">Bekor qilish</button>
+          <button class="confirm" onclick="createChallenge()">Yaratish</button>
+        </div>
+      </div>
+    `;
+  } else {
+    html += `<button class="add-btn" onclick="openCreate()">+ YANGI CHALLENGE</button>`;
+  }
+
+  if(active.length===0 && !creatingNew){
+    html += `<div class="empty-hint">Hali faol challenge yo'q.<br>Yuqoridagi tugma orqali birinchisini yarating — masalan "90 kun sport".</div>`;
+  }
+
+  html += active.map(c=>{
+    if(c.id === editingId){
+      return `
+        <div class="create-card">
+          <label>Challenge nomi</label>
+          <input type="text" id="editChName" value="${escapeHtml(c.name)}" placeholder="Masalan: 90 kun sport">
+          <label>Davomiyligi</label>
+          <div class="duration-options">
+            ${[30,60,90].map(d=>`<div class="duration-opt ${draftDuration===d?'active':''}" onclick="setDraftDuration(${d})">${d}</div>`).join('')}
+          </div>
+          <label>Mashqlar</label>
+          <div id="exDraftRows"></div>
+          <button class="add-ex-btn" type="button" onclick="addExDraftRow()">+ MASHQ QO'SHISH</button>
+          <div class="create-actions">
+            <button class="cancel" onclick="cancelEdit()">Bekor qilish</button>
+            <button class="confirm" onclick="saveEdit()">Saqlash</button>
+          </div>
+        </div>
+      `;
+    }
+
+    const idx = elapsedIndex(c);
+    const doneCount = c.checkedDates.length;
+    const pct = Math.round((doneCount/c.duration)*100);
+    const streak = computeStreak(c);
+    const todayDone = c.checkedDates.includes(todayStr());
+    const daysLeft = Math.max(0, c.duration - idx + 1);
+    const t = todayStr();
+
+    let exerciseBlock = '';
+    if(c.exercises && c.exercises.length>0){
+      exerciseBlock = `
+        <div class="exercise-list">
+          ${c.exercises.map(ex=>{
+            const log = (c.exerciseLogs[ex.id]||{})[t];
+            if(ex.type==='kun'){
+              const done = !!log;
+              return `
+                <div class="exercise-row">
+                  <div class="chk ${done?'on':''}" onclick="toggleExerciseKun('${c.id}','${ex.id}')">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div class="exercise-info">
+                    <div class="exercise-name">${escapeHtml(ex.name)}</div>
+                    <div class="exercise-sub">${done ? "Bugun bajarildi ✓" : "Hali belgilanmagan"}</div>
+                  </div>
+                </div>
+              `;
+            } else {
+              const val = log || '';
+              const targetTxt = ex.target ? ` / ${ex.target} ${ex.unit}` : ` ${ex.unit}`;
+              return `
+                <div class="exercise-row">
+                  <div class="exercise-info">
+                    <div class="exercise-name">${escapeHtml(ex.name)}</div>
+                    <div class="exercise-sub">Bugun: ${log||0}${targetTxt}</div>
+                  </div>
+                  <div class="exercise-num">
+                    <input type="number" id="exnum-${c.id}-${ex.id}" value="${val}" placeholder="0"
+                      onkeydown="if(event.key==='Enter') saveExerciseSoni('${c.id}','${ex.id}')">
+                    <button onclick="saveExerciseSoni('${c.id}','${ex.id}')">Saqlash</button>
+                  </div>
+                </div>
+              `;
+            }
+          }).join('')}
+        </div>
+      `;
+    }
+
+    let gridCells = '';
+    for(let i=1; i<=c.duration; i++){
+      const isFuture = i > idx;
+      const cellDate = dateAtIndex(c.startDate, i);
+      const isDone = c.checkedDates.includes(cellDate);
+      const isToday = i === idx;
+      let cls = 'day-cell';
+      if(isFuture) cls += ' future'; else if(isDone) cls += ' done'; else cls += ' missed';
+      if(isToday) cls += ' today-cell';
+      gridCells += `<div class="${cls}" ${isFuture? '' : `onclick="toggleDayCell('${c.id}', ${i})"`}>${i}</div>`;
+    }
+    const gridBlock = `
+      <div class="day-grid">${gridCells}</div>
+      <div class="grid-hint">${
+        c.exercises && c.exercises.length>0
+          ? "Barcha mashqlarni bajarsangiz, bugungi kun avtomatik belgilanadi. O'tgan kunlarni esa o'zingiz bosib belgilashingiz mumkin."
+          : "Bajargan kuningizni bosib belgilang"
+      }</div>
+    `;
+
+    return `
+      <div class="challenge-card">
+        <div class="ch-top">
+          <div>
+            <div class="ch-name">${escapeHtml(c.name)}</div>
+            ${streak>0 ? `<div class="streak-badge">🔥 ${streak} kun ketma-ket</div>` : ''}
+          </div>
+          <div class="card-actions">
+            <div class="icon-btn" onclick="openEdit('${c.id}')" title="Tahrirlash">✎</div>
+            <div class="icon-btn danger" onclick="requestDelete('${c.id}')" title="O'chirish">🗑</div>
+          </div>
+        </div>
+        <div class="ch-meta" style="text-align:left;margin-bottom:10px;">${c.duration} kunlik &middot; ${daysLeft} kun qoldi</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+        <div class="ch-stats-row"><span><b>${doneCount}</b> / ${c.duration} kun</span><span><b>${pct}%</b></span></div>
+        ${exerciseBlock}
+        ${gridBlock}
+      </div>
+    `;
+  }).join('');
+
+  html += `<div class="section-title">TUGALLANGAN CHALLENGE'LAR</div>`;
+  if(completed.length===0){
+    html += `<div class="empty-hint">Hali tugallangan challenge yo'q.</div>`;
+  } else {
+    html += completed.map(c=>`
+      <div class="completed-card">
+        <div>
+          <div class="name">${escapeHtml(c.name)}</div>
+          <div class="sub">${c.result.days} / ${c.duration} kun bajarildi</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="completed-badge">${c.result.percent}%</div>
+          <div class="icon-btn danger" onclick="requestDelete('${c.id}')" title="O'chirish">🗑</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  html += `<div class="footer-note">MA'LUMOTLAR SHU QURILMADA, OFFLINE SAQLANADI</div>`;
+
+  document.getElementById('app').innerHTML = html;
+
+  const nameField = document.getElementById('newChName');
+  if(nameField){
+    nameField.focus();
+    nameField.addEventListener('keydown', e=>{ if(e.key==='Enter') createChallenge(); });
+  }
+  const editNameField = document.getElementById('editChName');
+  if(editNameField){
+    editNameField.addEventListener('keydown', e=>{ if(e.key==='Enter') saveEdit(); });
+  }
+  if(creatingNew || editingId) renderExDraftRows();
+
+  maybeShowCelebration();
+}
+
+function openCreate(){
+  creatingNew = true;
+  editingId = null;
+  draftDuration = 30;
+  exDraft = [{id:uid(), name:'Ertalab yugurish', type:'kun', target:'', unit:''}];
+  render();
+}
+function cancelCreate(){ creatingNew = false; render(); }
+function setDraftDuration(d){ draftDuration = d; render(); }
+
+function renderExDraftRows(){
+  const wrap = document.getElementById('exDraftRows');
+  if(!wrap) return;
+  wrap.innerHTML = exDraft.map((ex,i)=>`
+    <div class="ex-draft-row">
+      <button type="button" class="ex-remove" onclick="removeExDraftRow(${i})">×</button>
+      <input type="text" value="${escapeHtml(ex.name)}" placeholder="Mashq nomi (masalan: Push-up)"
+        oninput="exDraft[${i}].name=this.value">
+      <div class="ex-row-2">
+        <select onchange="exDraft[${i}].type=this.value; renderExDraftRows();">
+          <option value="kun" ${ex.type==='kun'?'selected':''}>Kunlik (bajardim/bajarmadim)</option>
+          <option value="soni" ${ex.type==='soni'?'selected':''}>Sonli (necha marta)</option>
+        </select>
+        ${ex.type==='soni' ? `
+          <input type="number" placeholder="Norma" value="${ex.target}" oninput="exDraft[${i}].target=this.value">
+          <input type="text" placeholder="Birlik" value="${ex.unit}" style="width:70px;" oninput="exDraft[${i}].unit=this.value">
+        ` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+function addExDraftRow(){
+  exDraft.push({id:uid(), name:'', type:'kun', target:'', unit:''});
+  renderExDraftRows();
+}
+function removeExDraftRow(i){
+  exDraft.splice(i,1);
+  renderExDraftRows();
+}
+
+/* =====================================================
+   COMPLETION MODAL
+===================================================== */
+function maybeShowCelebration(){
+  if(celebrationQueue.length===0) return;
+  const id = celebrationQueue.shift();
+  const c = challenges.find(x=>x.id===id);
+  if(!c){ maybeShowCelebration(); return; }
+  c.celebrated = true;
+  saveChallenges();
+
+  const overlay = document.getElementById('modalOverlay');
+  overlay.innerHTML = `
+    <div class="modal-box">
+      <div class="modal-emoji">🎉</div>
+      <h2>Challenge yakunlandi!</h2>
+      <div class="ch-name-modal">${escapeHtml(c.name)}</div>
+      <div class="modal-result">${c.result.percent}%</div>
+      <div class="modal-result-sub">${c.duration} kundan ${c.result.days} kun bajardingiz</div>
+      <button onclick="closeCelebration()">Davom etish</button>
+    </div>
+  `;
+  requestAnimationFrame(()=>overlay.classList.add('open'));
+}
+function closeCelebration(){
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('open');
+  setTimeout(()=>{ overlay.innerHTML=''; maybeShowCelebration(); }, 300);
+}
+
+/* =====================================================
+   UTIL
+===================================================== */
+function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* =====================================================
+   INIT
+===================================================== */
+saveLastDate(todayStr());
+render();
+</script>
+</body>
+</html>
