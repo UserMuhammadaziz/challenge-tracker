@@ -6,7 +6,7 @@
 <title>Challenge — kunlik intizom</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
+ 
 :root{
   --bg:#0a0b12;
   --card:rgba(255,255,255,0.045);
@@ -34,7 +34,7 @@ body{
   padding:30px 16px 70px;
 }
 .wrap{max-width:480px;margin:0 auto;}
-
+ 
 /* ---------- onboarding ---------- */
 .onboard{
   min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
@@ -55,16 +55,41 @@ body{
   box-shadow:0 8px 24px rgba(99,102,241,0.35);transition:transform 0.15s;
 }
 .onboard button:active{transform:scale(0.97);}
-
+ 
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-
+ 
 /* ---------- header ---------- */
 .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;}
 .top .greet{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:23px;}
 .top .date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
-
+ 
 /* ---------- stats ---------- */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
+ 
+/* daily goals */
+.goals-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;margin-bottom:20px;
+  backdrop-filter:blur(16px);box-shadow:0 8px 28px rgba(0,0,0,0.25);
+}
+.goals-card h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;margin:0 0 14px;display:flex;justify-content:space-between;align-items:center;}
+.goals-card h3 .goal-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);font-weight:400;}
+.goal-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.goal-row:last-child{margin-bottom:0;}
+.goal-text{flex:1;font-size:14px;}
+.goal-text.done{color:var(--text-dim);text-decoration:line-through;}
+.goal-del{background:none;border:none;color:var(--text-dim);font-size:16px;cursor:pointer;opacity:0.5;padding:2px 4px;}
+.goal-del:hover{opacity:1;color:var(--danger);}
+.goal-empty{color:var(--text-dim);font-size:13px;margin-bottom:10px;}
+.goal-add-row{display:flex;gap:8px;margin-top:10px;}
+.goal-add-row input{
+  flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);
+  border-radius:12px;padding:9px 12px;font-size:13.5px;font-family:'Inter',sans-serif;
+}
+.goal-add-row input:focus{outline:none;border-color:var(--accent-a);}
+.goal-add-row button{
+  background:linear-gradient(135deg,var(--accent-a),var(--accent-b));border:none;color:#fff;
+  border-radius:12px;padding:0 16px;font-size:18px;cursor:pointer;line-height:1;
+}
 .stat-card{
   background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 16px;
   backdrop-filter:blur(16px);
@@ -72,13 +97,13 @@ body{
 .stat-card .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;
   background:linear-gradient(135deg,var(--accent-a),var(--accent-b));-webkit-background-clip:text;background-clip:text;color:transparent;}
 .stat-card .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;}
-
+ 
 /* ---------- section titles ---------- */
 .section-title{
   font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);text-transform:uppercase;
   letter-spacing:1.5px;margin:22px 2px 10px;display:flex;justify-content:space-between;align-items:center;
 }
-
+ 
 /* ---------- add button ---------- */
 .add-btn{
   width:100%;background:transparent;border:1.5px dashed var(--border);color:var(--text-dim);
@@ -86,18 +111,18 @@ body{
   cursor:pointer;margin-bottom:16px;transition:all 0.2s;
 }
 .add-btn:hover{border-color:var(--accent-a);color:var(--text);}
-
+ 
 /* ---------- create form ---------- */
 .create-card{
   background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;margin-bottom:16px;
   backdrop-filter:blur(16px);animation:fadeUp 0.35s ease;
 }
 .create-card label{display:block;font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;font-family:'JetBrains Mono',monospace;}
-.create-card input[type=text]{
+.create-card input[type=text],.create-card input[type=number]{
   width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);
   border-radius:12px;padding:10px 13px;font-size:14px;font-family:'Inter',sans-serif;margin-bottom:14px;
 }
-.create-card input[type=text]:focus{outline:none;border-color:var(--accent-a);}
+.create-card input[type=text]:focus,.create-card input[type=number]:focus{outline:none;border-color:var(--accent-a);}
 .duration-options{display:flex;gap:8px;margin-bottom:16px;}
 .duration-opt{
   flex:1;text-align:center;padding:10px 0;border-radius:12px;border:1px solid var(--border);
@@ -111,7 +136,7 @@ body{
 }
 .create-actions .cancel{background:rgba(255,255,255,0.05);color:var(--text-dim);}
 .create-actions .confirm{background:linear-gradient(135deg,var(--accent-a),var(--accent-b));color:#fff;}
-
+ 
 /* ---------- challenge card ---------- */
 .challenge-card{
   background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;margin-bottom:14px;
@@ -129,7 +154,7 @@ body{
   transition:width 0.8s cubic-bezier(.4,0,.2,1);}
 .ch-stats-row{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-dim);margin-bottom:14px;}
 .ch-stats-row b{color:var(--text);}
-
+ 
 .today-row{display:flex;align-items:center;gap:12px;}
 .chk{
   width:26px;height:26px;flex:none;border-radius:9px;border:1.5px solid var(--border);
@@ -142,7 +167,7 @@ body{
 @keyframes pop{0%{transform:scale(1);}45%{transform:scale(1.2);}100%{transform:scale(1);}}
 .today-label{flex:1;font-size:14px;font-weight:500;}
 .today-label small{display:block;color:var(--text-dim);font-size:11px;font-weight:400;margin-top:1px;}
-
+ 
 /* ---------- exercises inside a challenge ---------- */
 .exercise-list{display:flex;flex-direction:column;gap:12px;}
 .exercise-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,0.06);}
@@ -162,7 +187,7 @@ body{
   background:linear-gradient(135deg,var(--accent-a),var(--accent-b));border:none;color:#fff;
   border-radius:10px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;
 }
-
+ 
 /* ---------- exercise drafting in create form ---------- */
 .ex-draft-row{
   border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:rgba(255,255,255,0.03);
@@ -186,7 +211,7 @@ body{
   padding:9px;border-radius:12px;font-family:'Inter',sans-serif;font-size:12.5px;cursor:pointer;margin-bottom:14px;
 }
 .add-ex-btn:hover{border-color:var(--accent-a);color:var(--text);}
-
+ 
 /* ---------- completed list ---------- */
 .completed-card{
   background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;padding:15px 17px;margin-bottom:10px;
@@ -198,7 +223,7 @@ body{
   font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
   background:linear-gradient(135deg,var(--success),#10b981);-webkit-background-clip:text;background-clip:text;color:transparent;
 }
-
+ 
 /* ---------- card action icons ---------- */
 .card-actions{display:flex;gap:6px;flex:none;}
 .icon-btn{
@@ -208,7 +233,7 @@ body{
 .icon-btn:hover{color:var(--text);border-color:var(--accent-a);}
 .icon-btn.danger:hover{color:var(--danger);border-color:var(--danger);}
 .empty-hint{color:var(--text-dim);font-size:13px;text-align:center;padding:20px 10px;font-family:'JetBrains Mono',monospace;line-height:1.6;}
-
+ 
 /* ---------- completion modal ---------- */
 .modal-overlay{
   position:fixed;inset:0;background:rgba(6,7,14,0.75);backdrop-filter:blur(6px);
@@ -238,7 +263,7 @@ body{
 .modal-actions-row button{flex:1;width:auto;}
 .modal-actions-row button.ghost{background:rgba(255,255,255,0.08);color:var(--text-dim);}
 .modal-actions-row button.danger{background:linear-gradient(135deg,var(--danger),#e11d48);}
-
+ 
 /* day grid (manual kun-kataklari) */
 .day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:14px;}
 .day-cell{
@@ -251,9 +276,9 @@ body{
 .day-cell.missed{border-color:rgba(251,113,133,0.5);color:var(--danger);}
 .day-cell.today-cell{box-shadow:0 0 0 2px var(--accent-b);}
 .grid-hint{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--text-dim);margin-top:10px;text-align:center;}
-
+ 
 .footer-note{text-align:center;color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.5px;margin-top:26px;opacity:0.55;}
-
+ 
 @media(max-width:360px){
   .stats-grid{gap:8px;}
 }
@@ -262,7 +287,7 @@ body{
 <body>
 <div class="wrap" id="app"></div>
 <div class="modal-overlay" id="modalOverlay"></div>
-
+ 
 <script>
 /* =====================================================
    STORAGE LAYER
@@ -270,16 +295,20 @@ body{
 const STORE_USER = 'cbh_user';
 const STORE_CHALLENGES = 'cbh_challenges';
 const STORE_LAST_DATE = 'cbh_lastDate';
-
+ 
 function loadUser(){ try{ return JSON.parse(localStorage.getItem(STORE_USER)); }catch(e){ return null; } }
 function saveUser(u){ localStorage.setItem(STORE_USER, JSON.stringify(u)); }
-
+ 
 function loadChallenges(){ try{ return JSON.parse(localStorage.getItem(STORE_CHALLENGES)) || []; }catch(e){ return []; } }
 function saveChallenges(){ localStorage.setItem(STORE_CHALLENGES, JSON.stringify(challenges)); }
-
+ 
+const STORE_DAILY_GOALS = 'cbh_dailyGoals';
+function loadDailyGoalsMap(){ try{ return JSON.parse(localStorage.getItem(STORE_DAILY_GOALS)) || {}; }catch(e){ return {}; } }
+function saveDailyGoalsMap(){ localStorage.setItem(STORE_DAILY_GOALS, JSON.stringify(dailyGoalsMap)); }
+ 
 function loadLastDate(){ return localStorage.getItem(STORE_LAST_DATE); }
 function saveLastDate(d){ localStorage.setItem(STORE_LAST_DATE, d); }
-
+ 
 /* =====================================================
    DATE HELPERS
 ===================================================== */
@@ -288,23 +317,24 @@ function dateStr(d){ return d.toISOString().slice(0,10); }
 function daysBetween(a,b){ return Math.round((new Date(b)-new Date(a))/86400000); }
 function fmtShort(d){ return new Date(d).toLocaleDateString('uz-UZ',{day:'2-digit',month:'2-digit'}); }
 function uid(){ return 'c'+Date.now()+Math.floor(Math.random()*1000); }
-
+ 
 /* =====================================================
    STATE
 ===================================================== */
 let user = loadUser();
 let challenges = loadChallenges();
+let dailyGoalsMap = loadDailyGoalsMap();
 let creatingNew = false;
 let editingId = null;
 let draftDuration = 30;
 let exDraft = [];
 let celebrationQueue = [];
-
+ 
 /* =====================================================
    CHALLENGE LOGIC
 ===================================================== */
 function elapsedIndex(c){ return daysBetween(c.startDate, todayStr()) + 1; }
-
+ 
 function computeStreak(c){
   const checked = new Set(c.checkedDates);
   let streak = 0;
@@ -321,7 +351,7 @@ function computeStreak(c){
   }
   return streak;
 }
-
+ 
 function processExpirations(){
   let changed = false;
   challenges.forEach(c=>{
@@ -336,7 +366,7 @@ function processExpirations(){
   });
   if(changed) saveChallenges();
 }
-
+ 
 function toggleToday(id){
   const c = challenges.find(x=>x.id===id);
   if(!c) return;
@@ -346,13 +376,13 @@ function toggleToday(id){
   saveChallenges();
   render();
 }
-
+ 
 function dateAtIndex(startDate, i){
   const d = new Date(startDate);
   d.setDate(d.getDate() + (i-1));
   return dateStr(d);
 }
-
+ 
 function toggleDayCell(challengeId, i){
   const c = challenges.find(x=>x.id===challengeId);
   if(!c) return;
@@ -363,14 +393,14 @@ function toggleDayCell(challengeId, i){
   saveChallenges();
   render();
 }
-
+ 
 function exerciseDoneOn(c, ex, dStr){
   const log = (c.exerciseLogs[ex.id]||{})[dStr];
   if(ex.type==='kun') return !!log;
   const val = Number(log||0);
   return ex.target ? val>=ex.target : val>0;
 }
-
+ 
 function recomputeToday(c){
   if(!c.exercises || c.exercises.length===0) return;
   const t = todayStr();
@@ -379,7 +409,7 @@ function recomputeToday(c){
   if(allDone && i===-1) c.checkedDates.push(t);
   if(!allDone && i!==-1) c.checkedDates.splice(i,1);
 }
-
+ 
 function toggleExerciseKun(challengeId, exId){
   const c = challenges.find(x=>x.id===challengeId);
   if(!c) return;
@@ -391,7 +421,7 @@ function toggleExerciseKun(challengeId, exId){
   saveChallenges();
   render();
 }
-
+ 
 function saveExerciseSoni(challengeId, exId){
   const input = document.getElementById('exnum-'+challengeId+'-'+exId);
   if(!input) return;
@@ -405,7 +435,7 @@ function saveExerciseSoni(challengeId, exId){
   saveChallenges();
   render();
 }
-
+ 
 function createChallenge(){
   const nameInput = document.getElementById('newChName');
   const name = nameInput.value.trim();
@@ -435,7 +465,7 @@ function createChallenge(){
   creatingNew = false;
   render();
 }
-
+ 
 function requestDelete(id){
   const c = challenges.find(x=>x.id===id);
   if(!c) return;
@@ -458,7 +488,7 @@ function closeInfoModal(){
   overlay.classList.remove('open');
   setTimeout(()=>{ overlay.innerHTML=''; }, 300);
 }
-
+ 
 function showAbout(){
   const overlay = document.getElementById('modalOverlay');
   overlay.innerHTML = `
@@ -484,7 +514,35 @@ function performDelete(id){
   closeInfoModal();
   render();
 }
-
+ 
+/* ---------- kunlik maqsadlar (har kuni yangi ro'yxat) ---------- */
+function todaysGoalsList(){
+  const t = todayStr();
+  if(!dailyGoalsMap[t]) dailyGoalsMap[t] = [];
+  return dailyGoalsMap[t];
+}
+function addDailyGoal(){
+  const input = document.getElementById('newGoalInput');
+  const text = input.value.trim();
+  if(!text) return;
+  todaysGoalsList().push({id:uid(), text, done:false});
+  saveDailyGoalsMap();
+  input.value='';
+  render();
+}
+function toggleDailyGoal(id){
+  const g = todaysGoalsList().find(x=>x.id===id);
+  if(!g) return;
+  g.done = !g.done;
+  saveDailyGoalsMap();
+  render();
+}
+function deleteDailyGoal(id){
+  dailyGoalsMap[todayStr()] = todaysGoalsList().filter(x=>x.id!==id);
+  saveDailyGoalsMap();
+  render();
+}
+ 
 function openEdit(id){
   const c = challenges.find(x=>x.id===id);
   if(!c) return;
@@ -516,7 +574,7 @@ function saveEdit(){
   editingId = null;
   render();
 }
-
+ 
 /* =====================================================
    DAY-CHANGE WATCHER
 ===================================================== */
@@ -530,7 +588,7 @@ function checkDayRollover(){
   }
 }
 setInterval(checkDayRollover, 60000);
-
+ 
 /* =====================================================
    RENDER: ONBOARDING
 ===================================================== */
@@ -555,19 +613,19 @@ function submitName(){
   saveUser(user);
   render();
 }
-
+ 
 /* =====================================================
    RENDER: DASHBOARD
 ===================================================== */
 function render(){
   if(!user){ renderOnboarding(); return; }
-
+ 
   processExpirations();
-
+ 
   const active = challenges.filter(c=>c.status==='active');
   const completed = challenges.filter(c=>c.status==='completed');
   const totalDaysDone = challenges.reduce((sum,c)=>sum+c.checkedDates.length,0);
-
+ 
   let html = `
     <div class="top">
       <div>
@@ -576,26 +634,49 @@ function render(){
       </div>
       <div class="icon-btn" onclick="showAbout()" title="Ilova haqida">ℹ️</div>
     </div>
-
+ 
     <div class="stats-grid">
       <div class="stat-card"><div class="num">${challenges.length}</div><div class="lbl">Jami challenge</div></div>
       <div class="stat-card"><div class="num">${active.length}</div><div class="lbl">Faol</div></div>
       <div class="stat-card"><div class="num">${completed.length}</div><div class="lbl">Tugallangan</div></div>
       <div class="stat-card"><div class="num">${totalDaysDone}</div><div class="lbl">Bajarilgan kunlar</div></div>
     </div>
-
+  `;
+ 
+  const todaysGoals = todaysGoalsList();
+  html += `
+    <div class="goals-card">
+      <h3>Bugungi maqsadlar ${todaysGoals.length ? `<span class="goal-count">${todaysGoals.filter(g=>g.done).length}/${todaysGoals.length}</span>` : ''}</h3>
+      ${todaysGoals.length===0 ? `<div class="goal-empty">Hali maqsad qo'shilmagan.</div>` :
+        todaysGoals.map(g=>`
+          <div class="goal-row">
+            <div class="chk ${g.done?'on':''}" onclick="toggleDailyGoal('${g.id}')">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="goal-text ${g.done?'done':''}">${escapeHtml(g.text)}</div>
+            <button class="goal-del" onclick="deleteDailyGoal('${g.id}')">×</button>
+          </div>
+        `).join('')
+      }
+      <div class="goal-add-row">
+        <input type="text" id="newGoalInput" placeholder="Bugungi maqsad qo'shish..." maxlength="80">
+        <button onclick="addDailyGoal()">+</button>
+      </div>
+    </div>
+ 
     <div class="section-title">FAOL CHALLENGE'LAR</div>
   `;
-
+ 
   if(creatingNew){
     html += `
       <div class="create-card">
         <label>Challenge nomi</label>
         <input type="text" id="newChName" placeholder="Masalan: 90 kun sport">
-        <label>Davomiyligi</label>
+        <label>Davomiyligi (kun)</label>
         <div class="duration-options">
           ${[30,60,90].map(d=>`<div class="duration-opt ${draftDuration===d?'active':''}" onclick="setDraftDuration(${d})">${d}</div>`).join('')}
         </div>
+        <input type="number" id="customDurationInput" min="1" placeholder="Yoki o'zingiz kiriting (masalan 45)" value="${draftDuration}" oninput="setCustomDuration(this.value)">
         <label>Mashqlar</label>
         <div id="exDraftRows"></div>
         <button class="add-ex-btn" type="button" onclick="addExDraftRow()">+ MASHQ QO'SHISH</button>
@@ -608,21 +689,22 @@ function render(){
   } else {
     html += `<button class="add-btn" onclick="openCreate()">+ YANGI CHALLENGE</button>`;
   }
-
+ 
   if(active.length===0 && !creatingNew){
     html += `<div class="empty-hint">Hali faol challenge yo'q.<br>Yuqoridagi tugma orqali birinchisini yarating — masalan "90 kun sport".</div>`;
   }
-
+ 
   html += active.map(c=>{
     if(c.id === editingId){
       return `
         <div class="create-card">
           <label>Challenge nomi</label>
           <input type="text" id="editChName" value="${escapeHtml(c.name)}" placeholder="Masalan: 90 kun sport">
-          <label>Davomiyligi</label>
+          <label>Davomiyligi (kun)</label>
           <div class="duration-options">
             ${[30,60,90].map(d=>`<div class="duration-opt ${draftDuration===d?'active':''}" onclick="setDraftDuration(${d})">${d}</div>`).join('')}
           </div>
+          <input type="number" id="customDurationInput" min="1" placeholder="Yoki o'zingiz kiriting" value="${draftDuration}" oninput="setCustomDuration(this.value)">
           <label>Mashqlar</label>
           <div id="exDraftRows"></div>
           <button class="add-ex-btn" type="button" onclick="addExDraftRow()">+ MASHQ QO'SHISH</button>
@@ -633,7 +715,7 @@ function render(){
         </div>
       `;
     }
-
+ 
     const idx = elapsedIndex(c);
     const doneCount = c.checkedDates.length;
     const pct = Math.round((doneCount/c.duration)*100);
@@ -641,7 +723,7 @@ function render(){
     const todayDone = c.checkedDates.includes(todayStr());
     const daysLeft = Math.max(0, c.duration - idx + 1);
     const t = todayStr();
-
+ 
     let exerciseBlock = '';
     if(c.exercises && c.exercises.length>0){
       exerciseBlock = `
@@ -682,7 +764,7 @@ function render(){
         </div>
       `;
     }
-
+ 
     let gridCells = '';
     for(let i=1; i<=c.duration; i++){
       const isFuture = i > idx;
@@ -702,7 +784,7 @@ function render(){
           : "Bajargan kuningizni bosib belgilang"
       }</div>
     `;
-
+ 
     return `
       <div class="challenge-card">
         <div class="ch-top">
@@ -723,7 +805,7 @@ function render(){
       </div>
     `;
   }).join('');
-
+ 
   html += `<div class="section-title">TUGALLANGAN CHALLENGE'LAR</div>`;
   if(completed.length===0){
     html += `<div class="empty-hint">Hali tugallangan challenge yo'q.</div>`;
@@ -741,11 +823,11 @@ function render(){
       </div>
     `).join('');
   }
-
+ 
   html += `<div class="footer-note">MA'LUMOTLAR SHU QURILMADA, OFFLINE SAQLANADI</div>`;
-
+ 
   document.getElementById('app').innerHTML = html;
-
+ 
   const nameField = document.getElementById('newChName');
   if(nameField){
     nameField.focus();
@@ -755,11 +837,15 @@ function render(){
   if(editNameField){
     editNameField.addEventListener('keydown', e=>{ if(e.key==='Enter') saveEdit(); });
   }
+  const goalInput = document.getElementById('newGoalInput');
+  if(goalInput){
+    goalInput.addEventListener('keydown', e=>{ if(e.key==='Enter') addDailyGoal(); });
+  }
   if(creatingNew || editingId) renderExDraftRows();
-
+ 
   maybeShowCelebration();
 }
-
+ 
 function openCreate(){
   creatingNew = true;
   editingId = null;
@@ -769,7 +855,14 @@ function openCreate(){
 }
 function cancelCreate(){ creatingNew = false; render(); }
 function setDraftDuration(d){ draftDuration = d; render(); }
-
+function setCustomDuration(val){
+  const n = Number(val);
+  draftDuration = n>0 ? n : draftDuration;
+  document.querySelectorAll('.duration-opt').forEach(el=>{
+    el.classList.toggle('active', Number(el.textContent)===n);
+  });
+}
+ 
 function renderExDraftRows(){
   const wrap = document.getElementById('exDraftRows');
   if(!wrap) return;
@@ -799,7 +892,7 @@ function removeExDraftRow(i){
   exDraft.splice(i,1);
   renderExDraftRows();
 }
-
+ 
 /* =====================================================
    COMPLETION MODAL
 ===================================================== */
@@ -810,7 +903,7 @@ function maybeShowCelebration(){
   if(!c){ maybeShowCelebration(); return; }
   c.celebrated = true;
   saveChallenges();
-
+ 
   const overlay = document.getElementById('modalOverlay');
   overlay.innerHTML = `
     <div class="modal-box">
@@ -829,12 +922,12 @@ function closeCelebration(){
   overlay.classList.remove('open');
   setTimeout(()=>{ overlay.innerHTML=''; maybeShowCelebration(); }, 300);
 }
-
+ 
 /* =====================================================
    UTIL
 ===================================================== */
 function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
+ 
 /* =====================================================
    INIT
 ===================================================== */
